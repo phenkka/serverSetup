@@ -1,0 +1,32 @@
+- name: Configure firewall with ufw
+  hosts: servers
+  gather_facts: false
+  tasks:
+    - name: Reset ufw rules
+      ansible.builtin.command: ufw --force reset
+      changed_when: true
+    - name: Default deny incoming
+      ansible.builtin.command: ufw default deny incoming
+      changed_when: true
+    - name: Defaukt allow outgoing
+      ansible.builtin.command: ufw default allow outgoing
+      changed_when: true
+    - name: Allow ssh 22
+      ansible.builtin.command: ufw allow 22/tcp
+      changed_when: true
+    - name: Allow http 80
+      ansible.builtin.command: ufw allow 80/tcp
+      changed_when: true
+    - name: Allow https 443
+      ansible.builtin.command: ufw allow 443/tcp
+      changed_when: true 
+    - name: Enable ufw
+      ansible.builtin.command: ufw --force enable
+      changed_when: true
+    - name: Show ufw status
+      ansible.builtin.command: ufw status verbose
+      register: ufw_status
+      changed_when: false
+    - name: Print UFW status
+      ansible.builtin.debug:
+        var: ufw_status.stdout_lines
