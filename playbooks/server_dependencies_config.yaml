@@ -1,0 +1,26 @@
+- name: Configuring dependencies on the server
+  hosts: servers
+  gather_facts: true
+  tasks:
+
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+
+    - name: Install base packages
+      ansible.builtin.apt:
+        name:
+          - wget
+          - curl
+          - git
+          - python3
+          - python3-pip
+          - python3-venv
+          - dnsutils
+          - iptables
+          - nftables
+          - ufw
+          - htop
+        state: present
