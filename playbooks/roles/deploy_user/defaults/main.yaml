@@ -1,0 +1,11 @@
+deploy_user_name: deploy
+deploy_user_group: deploy
+deploy_user_home: "/home/{{ deploy_user_name }}"
+deploy_user_shell: /bin/bash
+
+deploy_dirs:
+  - /opt/apps
+  - /var/log/apps
+
+deploy_user_authorized_keys:
+  - "{{ lookup('file', lookup('env', 'HOME') + '/.ssh/id_ed25519.pub') }}"

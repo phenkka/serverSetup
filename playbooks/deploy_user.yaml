@@ -1,0 +1,5 @@
+- name: Create deploy user for running apps
+  hosts: servers
+  gather_facts: false
+  roles:
+    - role: deploy_user
